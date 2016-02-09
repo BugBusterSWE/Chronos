@@ -5,3 +5,4 @@ node_modules/
 #File js and js.map make by tsc
 *.js
 *.map.js
+*.js.map

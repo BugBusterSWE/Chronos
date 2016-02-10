@@ -57,8 +57,6 @@ module Module{
         var result : any = undefined;
 
         try{
-            //Accesso alla cartella del plugin
-            fs.accessSync( _PATH + namePlugin );
             //Accesso alla cartella del modulo
             fs.accessSync( `${_PATH}${namePlugin}/${_MODULE}${module}` );
 

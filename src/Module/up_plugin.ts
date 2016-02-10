@@ -23,7 +23,7 @@ module Module{
 
         console.log( `Plugin trovato da aggiornare: ${namePlugin}` );
 
-        var code : number = 0;
+        var code : number = Code._SUCCESS;
 
         //Controllo presenza del plugin
         try{
@@ -37,7 +37,7 @@ module Module{
             ).exec();
         } catch ( err ) { //Plugin non presente o impossibile da leggere
             console.log( err.message );
-            code = 128;
+            code = Code._INVALID_ARG;
         }
 
         return code;

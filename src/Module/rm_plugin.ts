@@ -10,6 +10,10 @@
 module Module{
     const fs = require( 'fs' );
 
+    /**
+     * @param url {string} - URL del repo del plugin da eliminare
+     * @returns {number} - Codice di uscita della cancellazione
+     */
     export function removePlugin( url : string ) : number {
         console.log( `URL : ${url}` );
         //Cattura il primo gruppo che corrisponde al nome del plugin
@@ -18,7 +22,7 @@ module Module{
             `Ottenimento stato cartella ${Module._PATH + namePlugin}: `
         );
 
-        var code : number = 0;
+        var code : number = Code._SUCCESS;
 
         //Controllo ed eliminazione cartella se presente
         try{
@@ -31,7 +35,7 @@ module Module{
             console.log( "Plugin rimosso" );
         } catch ( err ) { //Errore nell'accesso alla cartella del plugin
             console.log( err.message );
-            code = 128;
+            code = Code._INVALID_ARG;
         }
 
         return code;

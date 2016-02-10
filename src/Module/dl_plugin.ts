@@ -11,7 +11,7 @@
 
 module Module{
     /**
-     * @param url - URL del repo su GitHub
+     * @param url {string} - URL del repo su GitHub
      * @returns {number} - Codice di stato restituito da git clone
      */
     export function downloadPlugin( url : string ) : number {
@@ -27,13 +27,15 @@ module Module{
 
         console.log( `Nome plugin : ${namePlugin}` );
 
-        var code : number = 0;
+        var code : number = Code._SUCCESS;
 
         if ( namePlugin.length === 0 ) {
             //Uscita con codice d'errore generico
-            code = 1;
+            code = Code._GENERAL_ERROR;
         } else {
-            //Comandi di download dal repo di git nella cartella plugins
+            //Comandi di download dal repo di git nella cartella plugins.
+            //Nel caso la cartella _PATH non fosse presente verra creata
+            //automanticamente da git quando esegure il clone.
             var cmd : Command.CommandI = new Command.CommandSync(
                 'git', //Repository uso
                 ['clone', url, Module._PATH + namePlugin]

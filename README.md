@@ -1,5 +1,7 @@
 # Chronos 
 ![License](https://img.shields.io/badge/license-MPL2.0-blue.svg)
+[![Coverage Status](https://coveralls.io/repos/github/BugBusterSWE/Chronos/badge.svg?branch=master)](https://coveralls.io/github/BugBusterSWE/Chronos?branch=master)
+
 
 A dashboard extensibile with plugin
 

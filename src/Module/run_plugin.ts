@@ -1,30 +1,29 @@
 /**
- * Esegue il modulo specificato del plugin e ritorna il risultato.
+ * Run specified module and return: status code and result.
  *
- * L'esecuzione del modulo avviene trammite Node.js, quindi nella directory
- * del modulo si cerca prima un file 'package.json' che specifica il nome del
- * module e quale sia il file principale da eseguire. Altrimenti si cerca in
- * ordine un 'index.js' e successivamente 'index.node'.
+ * When you execute a module through Node.js, in the same directory start
+ * a research to find 'package.json' to understand what is the main file.
+ * Otherwise, first search a 'index.js' and after a 'index.node'.
  *
- * La struttura di un plugin attesto è:
- * - Nome autore
- *  *-- Nome plugin
+ * If there isn't any occurs, the module exit with status _INVALID_ARG.
+ *
+ * Expect a plugin structure look like this:
+ * - author_name
+ *  *-- plugin_name
  *      *-- modules
- *          *-- Nome modulo
+ *          *-- module_name
  *
- * altre configurazioni verranno ignorate.
+ * other configuration will be ignored.
  *
- * In entrambi i casi deve essere dichiarata una funzione 'main' aggiunta
- * all'oggetto 'exports'
+ * In all case, you must add, in main file, a function main to the special
+ * 'exports' object.
  *
- * Es. file index.js
+ * @example File index.js
  * ===========================================================================
- * exports.main = function( [args] ) {
+ * exports.main = function( [args] ) { //First function running
  *      **body**
  * }
  * ===========================================================================
- *
- * @todo Da eseguire eccezzioni nel caso la funzione main le lanciasse
  *
  * Created by amantova on 10/02/16.
  */
@@ -35,52 +34,53 @@ module Module{
     const fs = require('fs');
 
     /**
-     * @param url - URL del repo su GitHub
-     * @param module - Nome del modulo del plugin che si desidera eseguire
-     * @param [args] - Opzionale, array di stringhe con gli argomenti
-     * @returns {*|number[]} - Coppia valore ritornato dal modulo e codice
-     *                         di stato dell'esecuzione
+     * @param url - URL plugin's repo GitHub
+     * @param module - Name module to run
+     * @param [args] - Options, array list of the string arguments
+     * @returns {*|number[]} -
+     *  Pair value of result execution modue and status code its.
      */
     export function runModule(
         url : string,
         module : string,
         args? : Array<string> ) : [any,number] {
         console.log(
-            `Ricevuti \n` +
+            `Received \n` +
             `- URL: ${url}\n` +
             `- Modulo: ${module}`
         );
         var namePlugin : string = _EXPR_GIT.exec( url )[1];
-        console.log( `Controllo ${_PATH + namePlugin}/${_MODULE}${module}` );
+        console.log( `Check ${_PATH + namePlugin}/${_MODULE}${module}` );
 
         var code : number = Code._SUCCESS;
         var result : any = undefined;
 
         try{
-            //Accesso alla cartella del modulo
+            //Access inside module directory
             fs.accessSync( `${_PATH}${namePlugin}/${_MODULE}${module}` );
 
-            //Composizione path del modulo sicuro da caricare
-            //La composizione è relativa al file 'app.ts' che si trova
-            //un livello sotto della directory 'plugins'.
+            //Create path of the safe module to load
+            //The path is relative at the 'app.ts' file that it is below
+            //at the 'plugins' directory.
             var pathModule : string =
                 `../${_PATH}${namePlugin}/${_MODULE}${module}`;
 
-            //Incorpora il modulo esistente dell'utente
+            //Include user module
             const hisModule = require( pathModule );
 
             console.log( "Esecuzione modulo..." );
 
             /**
-             * Esegue il modulo passandogli i parametri
+             * Run module with the arguments passed
              *
-             * @throws Nel caso non vi sia la funzione 'main' dichiarata
-             * @throws Nel caso args richiesto ma non passato
+             * @throws No declared main funciont
+             * @throws Expect arguments but received nothing
              */
             result = hisModule.main( args );
 
         } catch ( err ) {
             console.log( err.message );
+            result = err;
             code = Code._INVALID_ARG;
         }
 

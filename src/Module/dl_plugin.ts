@@ -1,8 +1,5 @@
 /**
- * Esegui il download del repo passato come parametro nella cartella
- * specificata nella variabile globale _PATH.
- *
- * @todo Da implementare l'uso di un'altro sistema di versionamento
+ * Download remote repository and move it inside the directory _PATH
  */
 
 /// <reference path="config.ts" />
@@ -11,37 +8,36 @@
 
 module Module{
     /**
-     * @param url {string} - URL del repo su GitHub
-     * @returns {number} - Codice di stato restituito da git clone
+     * @param url {string} - URL GitHub repo
+     * @returns {number} - Exit statur return by git clone
      */
     export function downloadPlugin( url : string ) : number {
         console.log( `Repo ${url}` );
-        console.log( "Lettura file configurazione: " );
-        //Lettera file configurazione
+        console.log( "Read file configuration: " );
+        //Read configuration file
         console.log(
             `- PATH : ${Module._PATH} \n` +
             `- EXPR_GIT : ${Module._EXPR_GIT}`
         );
-        //Cattura il primo gruppo che corrisponde al nome del plugin
+        //Catch first gruop matched that it is the name of plugin
         var namePlugin : string = Module._EXPR_GIT.exec( url )[1];
 
-        console.log( `Nome plugin : ${namePlugin}` );
+        console.log( `Plugin : ${namePlugin}` );
 
         var code : number = Code._SUCCESS;
 
         if ( namePlugin.length === 0 ) {
-            //Uscita con codice d'errore generico
             code = Code._GENERAL_ERROR;
         } else {
-            //Comandi di download dal repo di git nella cartella plugins.
-            //Nel caso la cartella _PATH non fosse presente verra creata
-            //automanticamente da git quando esegure il clone.
+            //Download repo git in the plugins directory.
+            //If _PATH directory not exist git will create it when clone
+            //remote repo.
             var cmd : Command.CommandI = new Command.CommandSync(
-                'git', //Repository uso
+                'git', //Subversion program used
                 ['clone', url, Module._PATH + namePlugin]
             );
 
-            code = cmd.exec(); //attendi la terminazione del comando
+            code = cmd.exec(); //wait termination of task
         }
 
         return code;

@@ -5,10 +5,10 @@
 /// <reference path="CommandAbs.ts" />
 module Command{
     /**
-     * @classdesc CommandSync implementa un comando eseguito in modo sincrono
+     * @classdesc CommandSync perform a synchronous child process
      */
     export class CommandSync extends CommandAbs {
-        //Esecutore del processo
+        //Executor of process
         private static SPAWN = require('child_process').spawnSync;
 
         constructor( cmd : string, opt : Array<string> = [] ) {
@@ -16,7 +16,7 @@ module Command{
         }
 
         /**
-         * Esegui la comando passato in modo sincrono
+         * Run command in a synchronous way
          * @override
          */
         public exec() : number {

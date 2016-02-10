@@ -4,13 +4,13 @@
 
 module Command{
     /**
-     * @classdesc Interfaccia Command, rappresenta l'esecuzione di un comando.
+     * @classdesc Interface Command, it's perform a child process
      */
     export interface CommandI{
         /**
-         * Esegue il comando assegnato
+         * Run the command
          *
-         * @return {Number} Codice dello stato al termine dell'esecuzione del programma
+         * @return {number} Exit code of the process terminated
          */
         exec() : number;
     }

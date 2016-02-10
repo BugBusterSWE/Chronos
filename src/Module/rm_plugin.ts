@@ -1,5 +1,5 @@
 /**
- * Cancella il plugin specificato come repo.
+ * Remove plugin from the system.
  *
  * Created by @korut94 on 10/02/16.
  */
@@ -11,29 +11,29 @@ module Module{
     const fs = require( 'fs' );
 
     /**
-     * @param url {string} - URL del repo del plugin da eliminare
-     * @returns {number} - Codice di uscita della cancellazione
+     * @param url {string} - URL plugin's repo to erase
+     * @returns {number} - Exit code after erase
      */
     export function removePlugin( url : string ) : number {
         console.log( `URL : ${url}` );
-        //Cattura il primo gruppo che corrisponde al nome del plugin
+        //Catch first gruop matched that it is the name of plugin
         var namePlugin : string = Module._EXPR_GIT.exec( url )[1];
         console.log(
-            `Ottenimento stato cartella ${Module._PATH + namePlugin}: `
+            `Status directory ${Module._PATH + namePlugin}: `
         );
 
         var code : number = Code._SUCCESS;
 
-        //Controllo ed eliminazione cartella se presente
+        //Check and remove directory if present
         try{
             fs.accessSync( Module._PATH + namePlugin );
-            console.log( "Plugin presente" );
+            console.log( "Plugin exist" );
             new Command.CommandSync(
                 "rm",
                 ["-rf", Module._PATH + namePlugin]
             ).exec();
-            console.log( "Plugin rimosso" );
-        } catch ( err ) { //Errore nell'accesso alla cartella del plugin
+            console.log( "Plugin remove" );
+        } catch ( err ) { //Error occurs when try access in directory
             console.log( err.message );
             code = Code._INVALID_ARG;
         }

@@ -1,5 +1,5 @@
 /**
- * Script di partenze per l'esecuzione di Chronos
+ * Start script to execute Chronos
  *
  * Created by amantova on 09/02/16.
  */

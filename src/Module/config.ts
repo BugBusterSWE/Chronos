@@ -1,28 +1,25 @@
 /**
- * Dichiarazione variabili globali all'interno del modulo Module.
- * Preferito al posto di un file di configurazione in quando non sono opzioni
- * negoziabili durante l'uso del programma.
- *
- * @todo Arricchiri i codici d'errore per aiutare il plugin manager
+ * Declaration global option inside module Module.
+ * It's to prefer than a configuration becuase the option will not negotiable
+ * throughout a normal run.
  *
  * @author @korut94
  */
 
 module Module {
-    //Directory dei plugins
+    //Plugins directory
     export const _PATH : string = "plugins/";
-    //Directory dei moduli
+    //Modules directory
     export const _MODULE : string = "modules/";
-    //Regex in cui si preleva il nome l'autore del plugin e il nome del
-    //plugin
+    //Regex to catch "name_author/plugins"
     export const _EXPR_GIT : RegExp = /:(.*)\.git$/;
-    //Modulo presente i codici d'uscita dei moduli
+    //Archive code status
     export module Code{
-        //Uscita con successo
+        //Exit with success
         export const _SUCCESS : number = 0;
-        //Errore generale
+        //General error
         export const _GENERAL_ERROR : number = 1
-        //Argomento non valido
+        //Invalid argument
         export const _INVALID_ARG : number = 128;
     }
 }

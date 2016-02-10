@@ -5,19 +5,19 @@
 /// <reference path="CommandI.ts" />
 module Command{
     /**
-     * @classdesc CommandAbs - Informazioni comuni ad ogni tipo di Command
+     * @classdesc CommandAbs - Common information about every Command types
      */
     export abstract class CommandAbs implements CommandI{
-        //Comando da eseguire
+        //Command to run
         protected cmd : string;
-        //Opzioni passate
+        //Command's arguments
         protected opt : Array<string>;
 
         /**
-         * Costruisce un oggetto di tipo CommandAbs
+         * Build a CommandAbs object
          *
-         * @param cmd - Stringa del comando da eseguire
-         * @param opt - Array delle opzioni richieste
+         * @param cmd {string} - String command to run
+         * @param opt {string[]} - Array List of string arguments
          */
         public constructor( cmd : string, opt : Array<string> ) {
             this.cmd = cmd;

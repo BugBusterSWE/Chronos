@@ -1,6 +1,6 @@
 /**
  * Declaration global option inside module Module.
- * It's to prefer than a configuration becuase the option will not negotiable
+ * It's to prefer than a configuration because the option will not negotiable
  * throughout a normal run.
  *
  * @author @korut94

@@ -1,4 +1,6 @@
-# Chronos
+# Chronos 
+![License](https://img.shields.io/badge/license-MPL2.0-blue.svg)
+
 A dashboard extensibile with plugin
 
 Simple Dashboard for project with plugin

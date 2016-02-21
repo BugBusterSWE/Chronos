@@ -11,3 +11,5 @@
 // E' compito del modulo di trasmissione al plugin manager process come viene
 // definito la forma abbreviata da usare.
 var __plugin = undefined;
+
+const __SCOPING_OPERATOR = '::';

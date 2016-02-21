@@ -15,7 +15,7 @@
 
             var i = parseInt( document.getElementById( "sum" ).innerHTML );
             socketPlugin.run(
-                    "git@github.com:korut94/pluginTest.git?somma",
+                    "git@github.com:korut94/pluginTest.git::somma",
                     [ i, 1 ],
                     function ( num ) {
                         document.getElementById("sum").innerHTML = num;

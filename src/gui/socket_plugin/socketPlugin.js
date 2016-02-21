@@ -75,11 +75,11 @@ exports.run = function ( plugin, args, callback ) {
     // forma abbreviata con solo il nome del modulo. In quel caso al nome del
     // plugin viene dato quello assiociato alla variabile globale __plugin,
     // identificando il plugin attualmente in uso.
-    if ( plugin.indexOf( '?' ) > -1 ) {
+    if ( plugin.indexOf( __SCOPING_OPERATOR ) > -1 ) {
 
         // res[0] = Nome del plugin
         // res[1] = Nome del modulo
-        var res = plugin.split( "?" );
+        var res = plugin.split( __SCOPING_OPERATOR );
 
         plugin = res[0];
         module = res[1];

@@ -6,6 +6,22 @@
 </head>
 <script src="init.js"></script>
 <body>
-    Hello world! In this moment you use <script> document.write( __plugin ) </script> plugin.
+    <div id="sum">0</div>
+    <button onclick="inc()">+</button>
+
+    <script>
+        function inc() {
+            const socketPlugin = require( './socket_plugin' );
+
+            var i = parseInt( document.getElementById( "sum" ).innerHTML );
+            socketPlugin.run(
+                    "git@github.com:korut94/pluginTest.git?somma",
+                    [ i, 1 ],
+                    function ( num ) {
+                        document.getElementById("sum").innerHTML = num;
+                    }
+            )
+        }
+    </script>
 </body>
 </html>

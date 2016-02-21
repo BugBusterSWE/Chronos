@@ -20,10 +20,26 @@ function openChannel( callback ) {
     return idChannel;
 }
 
+/**
+ * Modello del pacchetto :
+ * {
+ *   action = azione da compiere,
+ *   plugin = plugin soggetto,
+ *   [ module ] = modulo se richiesto,
+ *   [ args ] = argomenti da passare se richiesti
+ *   channel = id del canale in attesa di risposta
+ * }
+ */
+var pack = new Object();
+pack.action = undefined;
+pack.plugin = undefined;
+pack.module = undefined;
+pack.args = undefined;
+pack.channel = undefined;
+
 // Invio richiesta di download del plugin.
 exports.download = function ( plugin, callback ) {
     // Creo il pacchetto
-    var pack = new Object();
     pack.action = "download";
     pack.plugin = plugin;
     pack.channel = openChannel( callback );
@@ -35,7 +51,6 @@ exports.download = function ( plugin, callback ) {
 // Invio richiesta di rimozione del plugin.
 exports.remove = function ( plugin, callback ) {
     // Creo il pacchetto
-    var pack = new Object();
     pack.action = "remove";
     pack.plugin = plugin;
     pack.channel = openChannel( callback );
@@ -73,7 +88,6 @@ exports.run = function ( plugin, args, callback ) {
     }
 
     // Creo il pacchetto
-    var pack = new Object();
     pack.action = "run";
     pack.plugin = plugin;
     pack.module = module;
@@ -88,7 +102,6 @@ exports.run = function ( plugin, args, callback ) {
 
 exports.update = function ( plugin, callback ) {
     // Creo il pacchetto
-    var pack = new Object();
     pack.action = "update";
     pack.plugin = plugin;
     pack.channel = openChannel( callback );

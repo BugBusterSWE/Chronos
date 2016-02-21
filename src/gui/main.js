@@ -11,9 +11,6 @@ const BrowserWindow = electron.BrowserWindow;
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 
-// Bind plugin process' pipe identify with fd = 3
-var reader = fs.createReadStream( null, {fd:3} );
-
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
     // On OS X it is common for applications and their menu bar
@@ -24,20 +21,11 @@ app.on('window-all-closed', function() {
 });
 
 // Here receive all message from parent
-reader.on( 'data', function( data ) {
-    // Quando l'applicazione si chiude la mainWindow non e' piu' referenziata.
-    // Per chiudere la pipe si e' innestato un ciclo di scambio di messaggi tra
-    // il plugin manager process e la gui process che termina quando la pipe si
-    // chiude.
-    if ( mainWindow !== null ) {
-        // Ricezione del pacchetto inviato
-        var pack = JSON.parse( data.toString() );
-        // Canale per comunicare con il processo di rendering.
-        mainWindow.webContents.send( pack.channel, pack.result );
-    } else {
-        // L'altra parte per formare il loop fino alla chiusura della pipe
-        process.stdout.write( 'idle' );
-    }
+process.stdout.on( 'data', function( data ) {
+    // Ricezione del pacchetto inviato
+    var pack = JSON.parse( data.toString() );
+    // Canale per comunicare con il processo di rendering.
+    mainWindow.webContents.send( pack.channel, pack.result );
 });
 
 // This method will be called when Electron has finished
@@ -58,8 +46,8 @@ app.on('ready', function() {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
-        // Star loop for to close the pipe. The message 'idle' is arbitrary.
-        process.stdout.write( 'idle' );
+        // Send signal to close pipe
+        process.stdout.emit( 'end' );
     });
 });
 

@@ -1,3 +1,6 @@
+#General file
+*.log
+
 #Not working directory
 node_modules/
 .idea/
@@ -6,3 +9,4 @@ node_modules/
 app.js
 *.map.js
 *.js.map
+

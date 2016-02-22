@@ -5,7 +5,7 @@
  */
 
 /// <require path="config.ts" />
-/// <require path="../Command/CommandSync.ts" />
+/// <require path="../command/CommandSync.ts" />
 
 module Module{
     const fs = require( 'fs' );

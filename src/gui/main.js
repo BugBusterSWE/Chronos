@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
@@ -19,8 +20,12 @@ app.on('window-all-closed', function() {
     }
 });
 
+// La procedura di cattura ed invio dei messaggi e' speculare a quanto succede
+// nel pmp. Infatti qui l'stdin rimane in attesa di ricezione dei messaggi,
+// invece la stdout gli invia.
+
 // Here receive all message from parent
-process.stdout.on( 'data', function( data ) {
+process.stdin.on( 'data', function( data ) {
     // Ricezione del pacchetto inviato
     var pack = JSON.parse( data.toString() );
     // Canale per comunicare con il processo di rendering.
@@ -49,7 +54,3 @@ app.on('ready', function() {
         process.stdout.emit( 'end' );
     });
 });
-
-
-
-

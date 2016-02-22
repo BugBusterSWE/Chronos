@@ -27,6 +27,13 @@ var [ris,code] = Module.runModule(
 const spawn = require( 'child_process' ).spawn;
 const gui = spawn( 'electron', [ 'src/gui' ] );
 
+// Mappa comunicazione:
+// PMP <-- stdout -- GUI
+// la gui invia i dati e pmp gli riceve usando la stdout.
+//
+// PMP -- stdin --> GUI
+// pmp invia i dati e la gui gli rivece usando la stdin.
+
 gui.stdout.on( 'data', ( data ) => {
     // Questo e' uno stubs di come dovrebbe lavorare il plugin manager e sara'
     // eliminata una volta completato il plugin manager.
@@ -51,7 +58,7 @@ gui.stdout.on( 'data', ( data ) => {
     );
 
     // Serializza il nuovo pacchetto e rimandalo alla gui.
-    gui.stdout.write( JSON.stringify( lightPack ) );
+    gui.stdin.write( JSON.stringify( lightPack ) );
 });
 
 gui.stdout.on( 'end', () => {

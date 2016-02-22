@@ -4,10 +4,10 @@
  * Created by amantova on 09/02/16.
  */
 
-/// <reference path="Module/dl_plugin.ts" />
-/// <reference path="Module/rm_plugin.ts" />
-/// <reference path="Module/up_plugin.ts" />
-/// <reference path="Module/run_plugin.ts" />
+/// <reference path="module/dl_plugin.ts" />
+/// <reference path="module/rm_plugin.ts" />
+/// <reference path="module/up_plugin.ts" />
+/// <reference path="module/run_plugin.ts" />
 /// <reference path="pack/pack.ts" />
 
 declare var require : any;

@@ -42,13 +42,22 @@ gui.stdout.on( 'data', ( data ) => {
 
     var pack : Package.PackRe = JSON.parse( data.toString() );
 
-    var values : Array<any> = pack.args;
-    var sum = 0;
-    for ( var i = 0; i < values.length; i++ ) {
-        sum = sum + values[i];
+    var manager = require('PluginManager/plugin_manager');
+    var ris;
+    switch (pack.action) {
+        case 'download':
+            ris = manager.download(pack.plugin);
+            break;
+        case 'update':
+            ris = manager.update(pack.plugin);
+            break;
+        case 'remove':
+            ris = manager.remove(pack.plugin);
+            break;
+        case 'run':
+            ris = manager.run(pack.plugin, pack.module, pack.args);
+            break;
     }
-
-    var ris : number = sum;
 
     // Pacchetto leggero privato di ogni attributo non necessario per
     // eseguire la callback in attesa sul canale dedicato.

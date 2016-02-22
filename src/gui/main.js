@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require( 'fs' );
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;

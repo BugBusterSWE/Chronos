@@ -5,23 +5,31 @@
     <title>Chronos</title>
 </head>
 <script src="init.js"></script>
-<body>
-    <div id="sum">0</div>
-    <button onclick="inc()">+</button>
-
-    <script>
-        function inc() {
-            const socketPlugin = require( './socket_plugin' );
-
-            var i = parseInt( document.getElementById( "sum" ).innerHTML );
-            socketPlugin.run(
-                    "git@github.com:korut94/pluginTest.git::somma",
-                    [ i, 1 ],
-                    function ( num ) {
-                        document.getElementById("sum").innerHTML = num;
-                    }
-            )
-        }
-    </script>
+<script src="basic_operations.js"></script>
+<body onload="load();">
+    <h1>Welcome to Chronos!!</h1>
+    <h2>Here you can manage your plugins.</h2>
+    <h3>Download, remove, update or run a plugin</h3>
+    <form>
+        <fieldset>
+            <p>
+                If you want to run a module without arguments, please specify the module after the Url, in this way:
+                <strong>URL::module</strong>.
+                <legend for="url">Plugin URL*</legend>
+                <input type="text" name="url" id="url" placeholder="URL"/>
+            </p>
+            <input type="button" onclick="download();" value="Download" />
+            <input type="button" onclick="removePlugin();" value="Remove" />
+            <input type="button" onclick="update();" value="Update" />
+        </fieldset>
+        <fieldset>
+            <p>
+                <legend for="args">Arguments (please insert them in a comma separated list of values)</legend>
+                <input type="text" name="args" id="args" placeholder="val1,val2,etc" />
+            </p>
+            <input type="button" onclick="run();" value="Run" />
+        </fieldset>
+    </form>
+    <div id="ris"></div>
 </body>
 </html>

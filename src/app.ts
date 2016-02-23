@@ -15,6 +15,8 @@ declare var require : any;
 var getopt = require('posix-getopt');
 var parser, option;
 var selectedOption;
+var command, args, plugin, module;
+var error = false;
 parser = new getopt.BasicParser('g(gui)t(terminal)d:(download)r:(remove)n:(run)u:(upload)m:(module)p:(parameters)',
     process.argv);
 while ((option = parser.getopt()) !== undefined) {
@@ -25,8 +27,45 @@ while ((option = parser.getopt()) !== undefined) {
         case 't':
             selectedOption = 't';
             break;
-    } //todo aggiungere opzioni da terminale
+        case 'd':
+            command = 'd';
+            plugin = option.optarg;
+            break;
+        case 'r':
+            command = 'r';
+            plugin = option.optarg;
+            break;
+        case 'n':
+            command = 'n';
+            plugin = option.optarg;
+            if (error) {
+                error = false;
+            }
+            break;
+        case 'u':
+            command = 'u';
+            plugin = option.optarg;
+            break;
+        case 'm':
+            if (command != 'n') {
+                error = true;
+            }
+            else {
+                module = option.optarg;
+            }
+            break;
+        case 'p':
+            if (command != 'n') {
+                error = true;
+            }
+            else {
+                args = option.optarg.toString().split(',');
+            }
+    }
 }
+
+var async = require('async');
+
 if (selectedOption == 'g') {
     const spawn = require('child_process').spawn;
     const gui = spawn('electron', ['src/gui']);
@@ -43,7 +82,6 @@ if (selectedOption == 'g') {
 
         var pack:Package.PackRe = JSON.parse(data.toString());
 
-        var async = require('async');
         //Try to perform the required operation in an asynchronous way
         async.series([
                 function (callback) {
@@ -98,5 +136,31 @@ if (selectedOption == 'g') {
 
     gui.on('close', (code) => {
         console.log(`Gui process exited with code ${code}`);
+    });
+} else {
+    async.series([
+        function (callback) {
+            switch (command) {
+                case 'd':
+                    callback(Module.downloadPlugin(plugin));
+                    break;
+                case 'r':
+                    callback(Module.removePlugin(plugin));
+                    break;
+                case 'u':
+                    callback(Module.updatePlugin(plugin));
+                    break;
+                case 'n':
+                    if (args && args.length == 0) {
+                        callback(Module.runModule(plugin, module));
+                    }
+                    else {
+                        callback(Module.runModule(plugin, module, args));
+                    }
+                    break;
+            }
+        }
+    ], function (ris) {
+        console.log(ris);
     });
 }

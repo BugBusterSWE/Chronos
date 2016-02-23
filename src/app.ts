@@ -35,39 +35,57 @@ const gui = spawn( 'electron', [ 'src/gui' ] );
 // pmp invia i dati e la gui gli rivece usando la stdin.
 
 gui.stdout.on( 'data', ( data ) => {
-    // Questo e' uno stubs di come dovrebbe lavorare il plugin manager e sara'
-    // eliminata una volta completato il plugin manager.
-
     console.log( `Parent received ${data}` );
 
     var pack : Package.PackRe = JSON.parse( data.toString() );
 
-    var manager = require('PluginManager/plugin_manager');
-    var ris;
-    switch (pack.action) {
-        case 'download':
-            ris = manager.download(pack.plugin);
-            break;
-        case 'update':
-            ris = manager.update(pack.plugin);
-            break;
-        case 'remove':
-            ris = manager.remove(pack.plugin);
-            break;
-        case 'run':
-            ris = manager.run(pack.plugin, pack.module, pack.args);
-            break;
-    }
-
-    // Pacchetto leggero privato di ogni attributo non necessario per
-    // eseguire la callback in attesa sul canale dedicato.
-    var lightPack : Package.PackSe = new Package.PackSe(
-        pack.channel,
-        ris
+    var async = require('async');
+    //Try to perform the required operation in an asynchronous way
+    async.series([
+        function (callback) {
+            // pack.action contains the required operation
+            // switch in function of it to discover what the user want
+            var ris;
+            switch (pack.action) {
+                case 'download':
+                    ris = Module.downloadPlugin(pack.plugin);
+                    break;
+                case 'update':
+                    ris = Module.updatePlugin(pack.plugin);
+                    break;
+                case 'remove':
+                    ris = Module.removePlugin(pack.plugin);
+                    break;
+                case 'run':
+                    ris = Module.runModule(pack.plugin, pack.module, pack.args);
+                    break;
+            }
+            if (pack.action != 'run') {
+                if (ris == 0) {
+                    callback('Everything OK!');
+                } else {
+                    callback('Ops, an error has occurred, please check the console for more information.' +
+                        'Error code: ' + ris);
+                }
+            } else {
+                callback(ris);
+            }
+        }
+    ],
+        /*
+        This callback function is called after the execution of the main function (see above). ris contains the result
+        of the operation.
+         */
+        function (ris) {
+            // create a little packet with the result of the operation...
+            var lightPack : Package.PackSe = new Package.PackSe(
+                pack.channel,
+                ris
+            );
+            //... and send it to the gui
+            gui.stdin.write( JSON.stringify( lightPack ) );
+        }
     );
-
-    // Serializza il nuovo pacchetto e rimandalo alla gui.
-    gui.stdin.write( JSON.stringify( lightPack ) );
 });
 
 gui.stdout.on( 'end', () => {

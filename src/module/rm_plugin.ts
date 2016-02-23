@@ -32,7 +32,7 @@ module Module{
                 "rm",
                 ["-rf", Module._PATH + namePlugin]
             ).exec();
-            console.log( "Plugin remove" );
+            console.log( "Plugin removed" );
         } catch ( err ) { //Error occurs when try access in directory
             console.log( err.message );
             code = Code._INVALID_ARG;

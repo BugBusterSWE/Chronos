@@ -6,6 +6,7 @@
 </head>
 <script src="init.js"></script>
 <script src="basic_operations.js"></script>
+<script src="loader/loader.js"></script>
 <body onload="load();">
     <h1>Welcome to Chronos!!</h1>
     <h2>Here you can manage your plugins.</h2>
@@ -31,5 +32,8 @@
         </fieldset>
     </form>
     <div id="ris"></div>
+    <button onclick="initGUI('mdipirro', 'roles');">Init test GUI</button>
+    <div id="plugin"></div>
+    <button onclick="listPlugins();">Installed plugins</button>
 </body>
 </html>

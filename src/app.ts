@@ -1,7 +1,7 @@
 /**
  * Start script to execute Chronos
  *
- * Created by amantova on 09/02/16.
+ * Created by matteo on 22/02/16.
  */
 
 /// <reference path="module/dl_plugin.ts" />
@@ -13,10 +13,10 @@
 declare var require : any;
 
 var getopt = require('posix-getopt');
-var parser, option;
-var selectedOption;
-var command, args, plugin, module;
-var error = false;
+var parser : any, option : any;
+var selectedOption : string;
+var command : string, args : string[], plugin : string, module : string;
+var error : boolean = false;
 parser = new getopt.BasicParser('g(gui)t(terminal)d:(download)r:(remove)n:(run)u:(upload)m:(module)p:(parameters)',
     process.argv);
 while ((option = parser.getopt()) !== undefined) {
@@ -87,7 +87,7 @@ if (selectedOption == 'g') {
                 function (callback) {
                     // pack.action contains the required operation
                     // switch in function of it to discover what the user want
-                    var ris;
+                    var ris : number;
                     switch (pack.action) {
                         case 'download':
                             ris = Module.downloadPlugin(pack.plugin);

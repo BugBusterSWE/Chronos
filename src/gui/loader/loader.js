@@ -72,46 +72,13 @@ function listPlugins() {
             var stat = fs.statSync(filePath);
             if (stat.isDirectory()) {
                 author.addPlugin(file);
-                console.log(author.getPlugins());
             }
         }
-        authors.push(author);
+        if (plugins.length != 0) {
+            authors.push(author);
+        }
     }
     console.log(createHTMLList(authors));
-    /*var fs = require('fs');
-    var root : string = './plugins/'
-    fs.readdir(root, function (err, files) {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            var authors : Author[] = [];
-            for(var i = 0; i < files.length; i++) {
-                var author: Author = new Author(files[i]);
-                fs.readdir(root + files[i], function (err, files) {
-                    if (err) {
-                        console.error(err);
-                    }
-                    else {
-                        for (var j = 0; j < files.length; j++) {
-                            var file = files[j];
-                            var filePath = root + author.getName() + '/' + file;
-                            fs.stat(filePath, function(err, stat) {
-                                if (stat.isDirectory()) {
-                                    author.addPlugin(file);
-                                    console.log(author.getPlugins());
-                                }
-                                if (files.length === j + 1) {
-                                    authors.push(author);
-                                    console.log('aaa');
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    });*/
 }
 /**
  * Creates a definition list (<dl>) in function of the passed array. The <dt> tags are author names, the <dd> tags are
@@ -125,7 +92,8 @@ function createHTMLList(authors) {
         dl += '<dt>' + authors[i].getName() + '</dt>';
         var plugins = authors[i].getPlugins();
         for (var j = 0; j < plugins.length; j++) {
-            dl += '<dd>' + plugins[j] + '</dd>';
+            dl += '<dd onclick="initGUI(\'' + authors[i].getName() + '\',\'' + plugins[j] + '\');">' +
+                plugins[j] + '</dd>';
         }
     }
     dl += '</dl>';

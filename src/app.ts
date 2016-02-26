@@ -13,10 +13,13 @@
 declare var require : any;
 
 var getopt = require('posix-getopt');
+var async = require('async');
+
 var parser : any, option : any;
 var selectedOption : string;
 var command : string, args : string[], plugin : string, module : string;
 var error : boolean = false;
+
 parser = new getopt.BasicParser('g(gui)t(terminal)d:(download)r:(remove)n:(run)u:(upload)m:(module)p:(parameters)',
     process.argv);
 while ((option = parser.getopt()) !== undefined) {
@@ -64,8 +67,6 @@ while ((option = parser.getopt()) !== undefined) {
     }
 }
 
-var async = require('async');
-
 if (selectedOption == 'g') {
     const spawn = require('child_process').spawn;
     const gui = spawn('electron', ['src/gui']);
@@ -87,29 +88,32 @@ if (selectedOption == 'g') {
                 function (callback) {
                     // pack.action contains the required operation
                     // switch in function of it to discover what the user want
-                    var ris : number;
+                    var ris: any;
+                    var code: number;
                     switch (pack.action) {
                         case 'download':
-                            ris = Module.downloadPlugin(pack.plugin);
+                            code = Module.downloadPlugin(pack.plugin);
                             break;
                         case 'update':
-                            ris = Module.updatePlugin(pack.plugin);
+                            code = Module.updatePlugin(pack.plugin);
                             break;
                         case 'remove':
-                            ris = Module.removePlugin(pack.plugin);
+                            code = Module.removePlugin(pack.plugin);
                             break;
                         case 'run':
-                            ris = Module.runModule(pack.plugin, pack.module, pack.args);
+                            [ris, code] = Module.runModule(pack.plugin, pack.module, pack.args);
                             break;
                     }
                     if (pack.action != 'run') {
-                        if (ris == 0) {
-                            callback('Everything OK!');
-                        } else {
-                            callback('Ops, an error has occurred, please check the console for more information.' +
-                                'Error code: ' + ris);
+                        if (code == 0) {
+                            callback(pack.action + 'success!');
                         }
-                    } else {
+                        else {
+                            callback('Ops, an error has occurred, please check the console for more information.' +
+                                'Error code: ' + code);
+                        }
+                    }
+                    else {
                         callback(ris);
                     }
                 }

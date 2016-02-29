@@ -9,19 +9,19 @@
 /// <reference path="module/up_plugin.ts" />
 /// <reference path="module/run_plugin.ts" />
 /// <reference path="pack/pack.ts" />
-
-declare var require : any;
+/// <reference path="../typings/main/ambient/node/node.d.ts" />
 
 var getopt = require('posix-getopt');
 var async = require('async');
 
 var parser : any, option : any;
 var selectedOption : string;
-var command : string, args : string[], plugin : string, module : string;
+var command : string, args : string[], plugin : string, userModule : string;
 var error : boolean = false;
 
 parser = new getopt.BasicParser('g(gui)t(terminal)d:(download)r:(remove)n:(run)u:(upload)m:(module)p:(parameters)',
     process.argv);
+
 while ((option = parser.getopt()) !== undefined) {
     switch (option.option) {
         case 'g':
@@ -54,7 +54,7 @@ while ((option = parser.getopt()) !== undefined) {
                 error = true;
             }
             else {
-                module = option.optarg;
+                userModule = option.optarg;
             }
             break;
         case 'p':
@@ -71,12 +71,12 @@ if (selectedOption == 'g') {
     const spawn = require('child_process').spawn;
     const gui = spawn('electron', ['src/gui']);
 
-    // Mappa comunicazione:
+    // Comunication map:
     // PMP <-- stdout -- GUI
-    // la gui invia i dati e pmp gli riceve usando la stdout.
+    // The gui send data through stdout channel and the pmp receive it
     //
     // PMP -- stdin --> GUI
-    // pmp invia i dati e la gui gli rivece usando la stdin.
+    // Instead, pmp send data through stdin channel and the gui receive it
 
     gui.stdout.on('data', (data) => {
         console.log(`Parent received ${data}`);
@@ -156,10 +156,10 @@ if (selectedOption == 'g') {
                     break;
                 case 'n':
                     if (args && args.length == 0) {
-                        callback(Module.runModule(plugin, module));
+                        callback(Module.runModule(plugin, userModule));
                     }
                     else {
-                        callback(Module.runModule(plugin, module, args));
+                        callback(Module.runModule(plugin, userModule, args));
                     }
                     break;
             }

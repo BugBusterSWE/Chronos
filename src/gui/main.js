@@ -20,15 +20,14 @@ app.on('window-all-closed', function() {
     }
 });
 
-// La procedura di cattura ed invio dei messaggi e' speculare a quanto succede
-// nel pmp. Infatti qui l'stdin rimane in attesa di ricezione dei messaggi,
-// invece la stdout gli invia.
+// In the gui to catch a message sended by pmp it use the stdin channel and it
+// send messages by stdout channal.
 
 // Here receive all message from parent
 process.stdin.on( 'data', function( data ) {
-    // Ricezione del pacchetto inviato
+    // Catch message sended
     var pack = JSON.parse( data.toString() );
-    // Canale per comunicare con il processo di rendering.
+    // Channel to communicate between Main process and Rendered process
     mainWindow.webContents.send( pack.channel, pack.result );
 });
 

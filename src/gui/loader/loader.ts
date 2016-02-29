@@ -2,7 +2,8 @@
  * Created by matteo on 24/02/16.
  */
 
-declare var require : any;
+
+/// <reference path="../../../typings/main/ambient/node/node.d.ts" />
 
 /**
  * Given an html file which contains the main GUI of Chronos, this function load the specific GUI of a plugin and put

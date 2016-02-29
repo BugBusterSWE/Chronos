@@ -40,6 +40,7 @@ var Author = (function () {
 /**
  * Created by matteo on 24/02/16.
  */
+/// <reference path="../../../typings/main/ambient/node/node.d.ts" />
 /**
  * Given an html file which contains the main GUI of Chronos, this function load the specific GUI of a plugin and put
  * it into a <div id='plugin'></div>. This div must be present in the main GUI. The specific GUI must be into a file

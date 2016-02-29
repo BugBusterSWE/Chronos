@@ -3,8 +3,8 @@
  */
 
 /// <reference path="config.ts" />
-/// <reference path="../Command/CommandI" />
-/// <reference path="../Command/CommandSync" />
+/// <reference path="../command/CommandI" />
+/// <reference path="../command/CommandSync" />
 
 module Module{
     /**

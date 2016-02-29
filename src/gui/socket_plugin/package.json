@@ -1,0 +1,4 @@
+{
+  "name" : "socket_plugin",
+  "main" : "socketPlugin.js"
+}

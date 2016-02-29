@@ -6,7 +6,7 @@
  * Created by @korut94 on 10/02/16.
  */
 
-/// <require path="../Command/CommandSync.ts" />
+/// <require path="../command/CommandSync.ts" />
 /// <require path="config.ts" />
 
 const fs = require('fs');

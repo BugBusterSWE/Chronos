@@ -14,4 +14,6 @@ app.js
 
 /src/gui/loader/*.js
 /src/gui/socket_plugin/*.js
-
+/src/gui/module/*.js
+/src/gui/command/*.js
+/src/gui/pack/*.js

@@ -1,44 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Chronos</title>
+    
+    <!-- META TAG -->
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS FILE -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- JS FILE -->
     <script src="init.js"></script>
     <script src="basic_operations.js"></script>
     <script src="loader/loader.js"></script>
 </head>
 <body onload="load();">
-    <h1>Welcome to Chronos!!</h1>
-    <div>
-        <h2>Here you can manage your plugins.</h2>
-        <form>
-            <fieldset>
-                <p>
-                    If you want to run a module without arguments, please specify the module after the Url, in this way:
-                    <strong>URL::module</strong>.
-                    <legend for="url">Plugin URL*</legend>
-                    <input type="text" name="url" id="url" placeholder="URL"/>
-                </p>
-                <input type="button" onclick="download();" value="Download" />
-                <input type="button" onclick="removePlugin();" value="Remove" />
-                <input type="button" onclick="update();" value="Update" />
-            </fieldset>
-            <fieldset>
-                <p>
-                    <legend for="args">Arguments (please insert them in a comma separated list of values)</legend>
-                    <input type="text" name="args" id="args" placeholder="val1,val2,etc" />
-                </p>
-                <input type="button" onclick="run();" value="Run" />
-            </fieldset>
-        </form>
-        <div id="ris"></div>
-    </div>
-    <div>
-        <h2>View your plugins!</h2>
-        <p>Click "Installed plugins" to view your plugins! Click on a plugin will init the GUI of the plugin,
-        if present.</p>
-        <button onclick="listPlugins();">Installed plugins</button>
-        <div id="plugin"></div>
-    </div>
+	<div class="container">
+	    <h1 class="text-center">Welcome <small>to</small> Chronos</h1>
+	    <div class="">
+	        <h2 class="text-center">Manage your Plugins</h2>
+	        <form>
+	            <fieldset class="form-group">
+             	<legend for="url">Plugin from URL</legend>
+                    <label for="url">If you want to run a module without arguments, please specify the module after the Url, in this way: <em>URL::module</em>.</label>
+	                <input class="form-control" type="text" name="url" id="url" placeholder="URL"/>
+
+	                <div class="text-right">
+	                	<br/>
+						<input class="btn btn-primary" type="button" onclick="download();" value="Download" />
+						<input class="btn btn-warning" type="button" onclick="update();" value="Update" />
+						<input class="btn btn-danger" type="button" onclick="removePlugin();" value="Remove" />
+					</div>
+	            </fieldset>           
+	            <fieldset class="form-group">
+	            <legend>Plugin Arguments</legend>
+            		<label for="args">Arguments (please insert them in a comma separated list of values)</label>
+                    <input class="form-control" type="text" name="args" id="args" placeholder="val1,val2,etc" />
+                    <div class="text-right">
+                    	<br/>
+						<input class="btn btn-primary" type="button" onclick="run();" value="Run" />
+					</div>
+	            </fieldset>
+	        </form>
+	        <div id="ris"></div>
+	    </div>
+	    <div>
+	        <h2 class="text-center">View your Plugins</h2>
+	        <div class="text-center">
+	        	Click "Installed plugins" to view your plugins! Click on a plugin will init the GUI of the plugin, if present.
+	        	<div><button class="btn btn-primary"  onclick="listPlugins();">Installed plugins</button></div>
+	        </div>
+	        <br/>
+	        <div id="plugin"></div>
+	    </div>
+	    <div id ="footer">
+	    	<br/>
+	    	<div class="text-center">
+	    		Copyright 2016 BugBusters
+	    	</div>
+	    </div>
+	</div>
 </body>
 </html>

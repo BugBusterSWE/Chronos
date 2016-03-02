@@ -1,16 +1,19 @@
 'use strict';
-// Per includere questo modulo e' necessario usare require( ./socket_plugin ).
-// Nelle future versioni sara' necessario eliminare './' in quanto rende poco
-// estendibile la struttura e non permette l'information hiding.
+// For this module is necessary use require( ./socket_plugin ).
+// In the future version will be necessary remove './' because it's limit the
+// extensible of project structure and it not allow information hiding.
 
 
-// Creiamo un canale d'ascolto con il nome del messaggio mandato.
-// Essendo la coppia nome plugin e modulo univoci, il nome del canale
-// sara' univocamente identificato.
+/** Create a channel listener. The channel name is 'id' concat with the current
+ *  time, in this way it's a univocal name.
+ *
+ * @param callback - Function to run when the PMP will reply
+ * @returns {string} - Id of channel
+ */
 function openChannel( callback ) {
-    var idChannel = "id_"+(new Date()).getTime(); // Il tempo e' la soluzione?
+    var idChannel = "id_"+(new Date()).getTime(); // The time is solution?
 
-    //Canale temporaneo in ascolto per il messaggio in arrivo dal main process.
+    //Temporary channel listen for message reached from main process.
     require( 'electron' ).ipcRenderer.once(
         idChannel,
         function ( event, message ) {
@@ -21,13 +24,13 @@ function openChannel( callback ) {
 }
 
 /**
- * Modello del pacchetto :
+ * Packet template :
  * {
- *   action = azione da compiere,
- *   plugin = plugin soggetto,
- *   [ module ] = modulo se richiesto,
- *   [ args ] = argomenti da passare se richiesti
- *   channel = id del canale in attesa di risposta
+ *   action = action to perform,
+ *   plugin = name of plugin,
+ *   [ module ] = name of module ( optional ),
+ *   [ args ] = arguments require ( optional ),
+ *   channel = id of channel awaiting message
  * }
  */
 var pack = new Object();
@@ -37,29 +40,45 @@ pack.module = undefined;
 pack.args = undefined;
 pack.channel = undefined;
 
-// Invio richiesta di download del plugin.
+/**
+ * Send request to download plugin
+ *
+ * @param plugin - Name of plugin
+ * @param callback - Function to perform after download
+ */
 exports.download = function ( plugin, callback ) {
-    // Creo il pacchetto
+    // Create packet
     pack.action = "download";
     pack.plugin = plugin;
     pack.channel = openChannel( callback );
 
-    // Invio il messaggio al padre
+    // Send message to the parent
     process.stdout.write( JSON.stringify( pack ) );
 };
 
-// Invio richiesta di rimozione del plugin.
+/**
+ * Send request to remove plugin
+ *
+ * @param plugin - Name of plugin
+ * @param callback - Function to perform after remove
+ */
 exports.remove = function ( plugin, callback ) {
-    // Creo il pacchetto
+    // Create packet
     pack.action = "remove";
     pack.plugin = plugin;
     pack.channel = openChannel( callback );
 
-    // Invio il messaggio al padre
+    // Send message to the parent
     process.stdout.write( JSON.stringify( pack ) );
 };
 
-// Invio richiesta di esecuzione modulo del plugin.
+/**
+ * Send request to run the plugin's module specified
+ *
+ * @param plugin - Name of module
+ * @param args - Array of arguments to pass to the module
+ * @param callback - Function to perform after run module
+ */
 exports.run = function ( plugin, args, callback ) {
     if ( callback === undefined ) {
         // Se non sono stati specificati argomenti la callback si trova

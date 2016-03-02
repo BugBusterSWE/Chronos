@@ -81,23 +81,20 @@ exports.remove = function ( plugin, callback ) {
  */
 exports.run = function ( plugin, args, callback ) {
     if ( callback === undefined ) {
-        // Se non sono stati specificati argomenti la callback si trova
-        // nella variabile degli argomenti
-        callback = args; // ORRIBILE!
+        // If any arguments specify then the callaback will store in 'args'
+        // parameter
+        callback = args; // ORRIBLE!
         args = [];
     }
 
     var module = plugin;
 
-    // Controllo se il plugin e' completo, con nome plugin seguito dal nome del
-    // modulo separati con il carattere divisore oppure si e' usata la
-    // forma abbreviata con solo il nome del modulo. In quel caso al nome del
-    // plugin viene dato quello assiociato alla variabile globale __plugin,
-    // identificando il plugin attualmente in uso.
+    // Check if the expression of plugin is extended type. Otherwise,
+    // the name of plugin is storing in global variable __plugin.
     if ( plugin.indexOf( __SCOPING_OPERATOR ) > -1 ) {
 
-        // res[0] = Nome del plugin
-        // res[1] = Nome del modulo
+        // res[0] = Name of plugin
+        // res[1] = Name of module
         var res = plugin.split( __SCOPING_OPERATOR );
 
         plugin = res[0];
@@ -106,25 +103,29 @@ exports.run = function ( plugin, args, callback ) {
         plugin = __plugin;
     }
 
-    // Creo il pacchetto
+    // Make packet
     pack.action = "run";
     pack.plugin = plugin;
     pack.module = module;
     pack.args = args;
-    // Il nome del canale deve essere unico altrimenti si creerebbe
-    // interferenza
     pack.channel = openChannel( callback );
 
-    // Serializzo il pacchetto da inviare al processo padre
+    // Packet serialized to send to the parent process
     process.stdout.write( JSON.stringify( pack ) );
 };
 
+/**
+ * Send request to update specified plugin
+ *
+ * @param plugin - Name of plugin
+ * @param callback - Function to perforn after update plugin
+ */
 exports.update = function ( plugin, callback ) {
-    // Creo il pacchetto
+    // Make packet
     pack.action = "update";
     pack.plugin = plugin;
     pack.channel = openChannel( callback );
 
-    // Invio il messaggio al padre
+    // Packet serialized to send to the parent process
     process.stdout.write( JSON.stringify( pack ) );
 };

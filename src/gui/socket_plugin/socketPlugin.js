@@ -71,7 +71,7 @@ exports.run = function ( plugin, args, callback ) {
     var module = plugin;
 
     // Controllo se il plugin e' completo, con nome plugin seguito dal nome del
-    // modulo separati con il carattere divisore ( '?' ) oppure si e' usata la
+    // modulo separati con il carattere divisore oppure si e' usata la
     // forma abbreviata con solo il nome del modulo. In quel caso al nome del
     // plugin viene dato quello assiociato alla variabile globale __plugin,
     // identificando il plugin attualmente in uso.

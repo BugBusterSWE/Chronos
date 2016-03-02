@@ -20,6 +20,9 @@ function initGUI(author, plugin) {
         var pluginNode : HTMLElement = document.getElementById( 'plugin' );
 
         if ( !err ) {
+            // Set current plugin loaded to use the short expression module
+            __plugin = `${__GIT_PATH}${author}/${plugin}.git`;
+
             // Set content of index.html in div 'plugin'
             pluginNode.innerHTML = data;
 
@@ -40,7 +43,7 @@ function initGUI(author, plugin) {
                 // Get all path forward gui
                 var relativePath = /gui\/(.*)/.exec( absolutelyPath )[1];
 
-                // Path respect at src/gui of Chronos
+                // Path plugin loaded respect at src/gui of Chronos
                 script.src =
                     `../../plugins/${author}/${plugin}/${relativePath}`;
                 script.type = scriptsDeclared[i].type;

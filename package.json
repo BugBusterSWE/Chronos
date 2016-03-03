@@ -1,0 +1,27 @@
+{
+  "author": "BugBusters <bugbusterswe@gmail.com>",
+  "name": "Chronos",
+  "description": "A dashboard extensibile with plugin",
+  "version": "0.0.1",
+  "homepage": "https://github.com/BugBusterSWE/Chronos",
+  "main": "./src/app",
+  "keywords": [
+    "dashboard",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/BugBusterSWE/Chronos.git"
+  },
+  "scripts": {},
+  "engines": {
+    "node": ">= 0.4"
+  },
+  "dependencies": {
+      "electron": "0.36.x",
+      "typings": "0.6.x",
+      "asyncs": "1.5.x"
+  },
+  "devDependencies": {}
+}
+

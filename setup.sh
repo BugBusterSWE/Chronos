@@ -62,6 +62,9 @@ function main() {
 
     msg d "Getting npm dependences..."
     get_npm_dependences
+
+    msg d "Setting typings"
+    typings install node --ambient
 }
 
 #main call

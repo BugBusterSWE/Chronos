@@ -43,9 +43,9 @@ function get_node() {
 
     msg v "You need sudo privileges in order to do this operation"
     msg d "Refreshing apt cache..."
-    sudo apt-get update -qq
+    apt-get update -qq
     msg d "Installing nodeJs..."
-    sudo apt-get install nodejs-legacy nodejs -y -qq
+    apt-get install nodejs-legacy nodejs -y -qq
     msg v "Done installing nodeJs"
 }
 
@@ -67,5 +67,7 @@ function main() {
     typings install node --ambient
 }
 
+#first error everything stops
+set -e
 #main call
 main $1

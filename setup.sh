@@ -30,7 +30,7 @@ function get_npm_dependences() {
 
     msg v "Installing npm dependences"
     msg d "Getting Electron..."
-    npm install electron-prebuild -g
+    npm install electron-prebuilt -g
     msg d "Getting Typings..."
     npm install typings -g
     msg d "Getting Async..."

@@ -9,7 +9,7 @@
 /// <reference path="module/up_plugin.ts" />
 /// <reference path="module/run_plugin.ts" />
 /// <reference path="pack/pack.ts" />
-/// <reference path="../typings/main/ambient/node/node.d.ts" />
+/// <reference path="../typings/main.d.ts" />
 
 var getopt = require('posix-getopt');
 var async = require('async');

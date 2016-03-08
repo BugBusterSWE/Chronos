@@ -15,7 +15,7 @@ Run it everywhere
 =================
 
 Chronos is write in ![TypeScript](https://github.com/Microsoft/TypeScript), a superset for JavaScript. In this way you can run Chronos in the OS you want, without problems.
-All you need is ![NodeJS](https://github.com/nodejs/node) and ![NW](https://github.com/nwjs/nw.js) if you need a GUI, but remember that Chronos can run smoothly as a terminal program.
+All you need is ![NodeJS](https://github.com/nodejs/node) and ![Electron](http://electron.atom.io/) if you need a GUI, but remember that Chronos can run smoothly as a terminal program.
 
 License
 =======

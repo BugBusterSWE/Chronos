@@ -2,7 +2,7 @@
 #@author: Davide Polonio
 #@license: GPLv3 license
 
-##VARIABLE
+##VARIABLES
 VERBOSE=1
 DEBUG=0
 ##END

@@ -65,7 +65,12 @@ function main() {
     get_npm_dependences
 
     msg d "Setting typings"
+    cd src/
     typings install node --ambient
+    #compile project
+    tsc
+    #move to the root project
+    cd ../ 
 }
 
 #first error everything stops

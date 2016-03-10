@@ -67,8 +67,10 @@ function main() {
     msg d "Setting typings"
     cd src/
     typings install node --ambient
+    msg d "Compile sources..."
     #compile project
     tsc
+    msg v "Done"
     #move to the root project
     cd ../ 
 }

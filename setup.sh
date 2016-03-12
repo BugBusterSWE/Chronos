@@ -31,9 +31,9 @@ function get_npm_dependences() {
 
     msg v "Installing npm dependences"
     msg d "Getting Electron..."
-    npm install electron-prebuilt -g
+    sudo npm install electron-prebuilt -g
     msg d "Getting Typings..."
-    npm install typings -g
+    sudo npm install typings -g
     msg d "Getting Async..."
     npm install async
     msg d "Getting posix-getopt"
@@ -44,9 +44,9 @@ function get_node() {
 
     msg v "You need sudo privileges in order to do this operation"
     msg d "Refreshing apt cache..."
-    apt-get update -qq
+    sudo apt-get update -qq
     msg d "Installing nodeJs..."
-    apt-get install nodejs-legacy nodejs -y -qq
+    sudo apt-get install nodejs-legacy nodejs -y -qq
     msg v "Done installing nodeJs"
 }
 
@@ -67,12 +67,10 @@ function main() {
     msg d "Setting typings"
     cd src/
     typings install node --ambient
-    msg d "Compile sources..."
-    #compile project
+    msg d "Compiling..."
     tsc
+    cd ..
     msg v "Done"
-    #move to the root project
-    cd ../ 
 }
 
 #first error everything stops

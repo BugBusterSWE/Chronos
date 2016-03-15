@@ -9,7 +9,9 @@
 /// <reference path="module/up_plugin.ts" />
 /// <reference path="module/run_plugin.ts" />
 /// <reference path="pack/pack.ts" />
-/// <reference path="typings/main.d.ts" />
+
+declare var require : any;
+declare var process : any;
 
 var getopt = require('posix-getopt');
 var async = require('async');
@@ -68,7 +70,10 @@ while ((option = parser.getopt()) !== undefined) {
 }
 
 if (selectedOption == 'g') {
+
+    console.log("Sto per partire");
     const spawn = require('child_process').spawn;
+    console.log("Ora spawno electron");
     const gui = spawn('electron', ['src/gui']);
 
     // Comunication map:

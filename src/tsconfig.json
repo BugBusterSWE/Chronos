@@ -1,12 +1,8 @@
 {
     "compilerOptions": {
-	"module": "commonjs",
+	"module": "amd",
 	"target": "es5",
 	"sourceMap": true,
-	"outFile" : "app.js"
-    },
-    "exclude": [
-	"typings/browser.d.ts",
-	"typings/browser"
-    ]
+	"out":"chronos.js"
+    }
 }

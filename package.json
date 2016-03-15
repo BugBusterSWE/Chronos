@@ -18,11 +18,10 @@
     "node": ">= 0.4"
   },
   "dependencies": {
-      "electron": "0.36.x",
-      "typings": "0.6.x",
-      "asyncs": "1.5.x",
-      "posix-getopt": "1.2.0"
+    "asyncs": "^1.5.x",
+    "electron": "^0.36.x",
+    "posix-getopt": "^1.2.0",
+    "typescript": "^1.8.7"
   },
   "devDependencies": {}
 }
-

@@ -31,7 +31,7 @@ function get_npm_dependences() {
 
     msg v "Installing npm dependences"
     msg d "Getting Electron..."
-    sudo npm install electron-prebuilt -g
+    sudo npm install electron-prebuilt@0.36.8 -g
     msg d "Getting Typings..."
     sudo npm install typings -g
     msg d "Getting Async..."

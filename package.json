@@ -4,7 +4,7 @@
   "description": "A dashboard extensibile with plugin",
   "version": "0.0.1",
   "homepage": "https://github.com/BugBusterSWE/Chronos",
-  "main": "./src/app",
+  "main": "./src/chronos",
   "keywords": [
     "dashboard",
     "plugin"
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "async": "^1.5.x",
-    "electron": "^0.4.1",
     "posix-getopt": "^1.2.0",
     "typescript": "^1.8.7"
   },

@@ -32,8 +32,8 @@ function get_npm_dependences() {
     msg v "Installing npm dependences"
     msg d "Getting Electron..."
     sudo npm install electron-prebuilt@0.36.8 -g
-    msg d "Getting Typings..."
-    sudo npm install typings -g
+    msg d "Getting Typescript..."
+    sudo npm install typescript -g
     msg d "Getting Async..."
     npm install async
     msg d "Getting posix-getopt"
@@ -46,7 +46,8 @@ function get_node() {
     msg d "Refreshing apt cache..."
     sudo apt-get update -qq
     msg d "Installing nodeJs..."
-    sudo apt-get install nodejs-legacy nodejs -y -qq
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    sudo apt-get install -y nodejs
     msg v "Done installing nodeJs"
 }
 
@@ -66,10 +67,13 @@ function main() {
 
     msg d "Setting typings"
     cd src/
-    typings install node --ambient
-    msg d "Compiling..."
+    msg d "Compiling plugin process manager..."
     tsc
-    cd ..
+    cd gui/loader
+    msg d "Compiling loader plugin..."
+    tsc
+    #go at the root of project
+    cd ../../../
     msg v "Done"
 }
 

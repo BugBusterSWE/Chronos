@@ -70,11 +70,9 @@ while ((option = parser.getopt()) !== undefined) {
 }
 
 if (selectedOption == 'g') {
-
-    console.log("Sto per partire");
-    const spawn = require('child_process').spawn;
-    console.log("Ora spawno electron");
-    const gui = spawn('electron', ['src/gui']);
+    const electron = require('electron-prebuilt');
+    const proc = require('child_process');
+    const gui = proc.spawn(electron, ['src/gui']);
 
     // Comunication map:
     // PMP <-- stdout -- GUI

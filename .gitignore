@@ -11,7 +11,6 @@ src/typings/
 app.js
 *.map.js
 *.js.map
-
 /src/gui/loader/*.js
 /src/gui/socket_plugin/*.js
 /src/module/*.js

@@ -12,4 +12,7 @@
 // definito la forma abbreviata da usare.
 var __plugin = undefined;
 
+const __GIT_PATH = "https://github.com/";
+
 const __SCOPING_OPERATOR = '::';
+

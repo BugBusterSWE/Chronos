@@ -16,7 +16,49 @@ function initGUI(author, plugin) {
     var fs = require('fs');
     console.log(require('path').dirname(require.main.filename));
     fs.readFile('./plugins/' + author + '/' + plugin + '/index.html', function (err, data) {
-        document.getElementById('plugin').innerHTML = ((err) ? err : data);
+        var pluginNode : HTMLElement = document.getElementById( 'plugin' );
+
+        if ( !err ) {
+            // Set current plugin loaded to use the short expression module
+            __plugin = `${__GIT_PATH}${author}/${plugin}.git`;
+
+            // Set content of index.html in div 'plugin'
+            pluginNode.innerHTML = data;
+
+            var scriptsDeclared : NodeListOf<HTMLScriptElement> =
+                pluginNode.getElementsByTagName( "script" );
+
+            var number : number = scriptsDeclared.length;
+            // For each script included in file index, will create a its copy
+            // and append it in the head of rendering page to reload the script
+            // required.
+            for ( var i : number = 0; i < number; i++ ) {
+                // Create a copy of script
+                var script : HTMLScriptElement =
+                    document.createElement( "script" );
+
+                // Get the absolutely path declared in src script attribute
+                var absolutelyPath = scriptsDeclared[i].src;
+                // Get all path forward gui
+                var relativePath = /gui\/(.*)/.exec( absolutelyPath )[1];
+
+                // Path plugin loaded respect at src/gui of Chronos
+                script.src =
+                    `../../plugins/${author}/${plugin}/${relativePath}`;
+                script.type = scriptsDeclared[i].type;
+
+                // Remove script included for not to have two copy of the same
+                // script.
+                scriptsDeclared[i].parentNode.removeChild(
+                    scriptsDeclared[i]
+                );
+
+                // Load script
+                document.head.appendChild( script );
+            }
+        } else {
+            pluginNode.innerHTML = err;
+        }
     });
 }
 

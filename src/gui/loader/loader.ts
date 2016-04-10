@@ -3,6 +3,8 @@
  */
 
 declare var require : any;
+declare var __GIT_PATH : any;
+declare var __plugin : any;
 
 /**
  * Given an html file which contains the main GUI of Chronos, this function load the specific GUI of a plugin and put

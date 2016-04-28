@@ -13,7 +13,9 @@
     "type": "git",
     "url": "git://github.com/BugBusterSWE/Chronos.git"
   },
-  "scripts": {},
+  "scripts": {
+	 "build": "tsc -p src/ && tsc -p src/gui/loader"
+  },
   "engines": {
     "node": ">= 0.4"
   },

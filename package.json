@@ -14,7 +14,9 @@
     "url": "git://github.com/BugBusterSWE/Chronos.git"
   },
   "scripts": {
-	 "build": "tsc -p src/ && tsc -p src/gui/loader"
+	 "build": "tsc -p src/ && tsc -p src/gui/loader",
+         "postinstall": "npm run build",
+         "start": "node src/chronos.js -g"
   },
   "engines": {
     "node": ">= 0.4"

@@ -30,29 +30,28 @@ function initGUI(author, plugin) {
             var scriptsDeclared : NodeListOf<HTMLScriptElement> =
                 pluginNode.getElementsByTagName( "script" );
 
-            var number : number = scriptsDeclared.length;
             // For each script included in file index, will create a its copy
             // and append it in the head of rendering page to reload the script
             // required.
-            for ( var i : number = 0; i < number; i++ ) {
+            while ( scriptsDeclared.length > 0 ) {
                 // Create a copy of script
                 var script : HTMLScriptElement =
                     document.createElement( "script" );
 
                 // Get the absolutely path declared in src script attribute
-                var absolutelyPath = scriptsDeclared[i].src;
+                var absolutelyPath = scriptsDeclared[0].src;
                 // Get all path forward gui
                 var relativePath = /gui\/(.*)/.exec( absolutelyPath )[1];
 
                 // Path plugin loaded respect at src/gui of Chronos
                 script.src =
                     `../../plugins/${author}/${plugin}/${relativePath}`;
-                script.type = scriptsDeclared[i].type;
+                script.type = scriptsDeclared[0].type;
 
                 // Remove script included for not to have two copy of the same
                 // script.
-                scriptsDeclared[i].parentNode.removeChild(
-                    scriptsDeclared[i]
+                scriptsDeclared[0].parentNode.removeChild(
+                    scriptsDeclared[0]
                 );
 
                 // Load script

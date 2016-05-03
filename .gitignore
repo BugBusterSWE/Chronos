@@ -16,3 +16,4 @@ app.js
 /src/module/*.js
 /src/command/*.js
 /src/pack/*.js
+src/chronos.js
